@@ -1,10 +1,1414 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>My First Site</title>
-</head>
-<body style="font-family: Arial; text-align:center; margin-top:100px;">
-  <h1>Hello World</h1>
-  <p>My first website is live, yay 🚀</p>
-</body>
+<!doctype html>
+<html lang="lv">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RB Elektrība | Elektroinstalācija, KNX un mērījumi</title>
+    <meta
+      name="description"
+      content="RB Elektrība veic elektroinstalāciju, KNX ēku automatizāciju un elektroinstalācijas mērījumus ar protokoliem ēku nodošanai ekspluatācijā."
+    >
+    <meta name="theme-color" content="#17191f">
+    <meta property="og:title" content="RB Elektrība | Elektroinstalācija, KNX un mērījumi">
+    <meta
+      property="og:description"
+      content="Elektromontāža, KNX automatizācija un mērījumu protokoli privātiem, komerciāliem un industriāliem objektiem."
+    >
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rbelektriba.lv/">
+    <link rel="canonical" href="https://rbelektriba.lv/">
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17191f;
+        --muted: #626978;
+        --line: #dfe3ea;
+        --paper: #f7f8fa;
+        --white: #ffffff;
+        --signal: #f5b700;
+        --field: #eef6f2;
+        --field-ink: #1f6a45;
+        --panel: #242832;
+        --panel-soft: #303642;
+        --shadow: 0 22px 70px rgba(23, 25, 31, 0.12);
+        --radius: 8px;
+        --max: 1160px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: var(--white);
+        line-height: 1.55;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img,
+      svg {
+        display: block;
+        max-width: 100%;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(255, 255, 255, 0.92);
+        border-bottom: 1px solid rgba(223, 227, 234, 0.8);
+        backdrop-filter: blur(14px);
+      }
+
+      .nav {
+        width: min(100% - 32px, var(--max));
+        min-height: 72px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 190px;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        color: var(--ink);
+        background: var(--signal);
+        border: 1px solid rgba(23, 25, 31, 0.12);
+        border-radius: var(--radius);
+        box-shadow: 5px 5px 0 var(--ink);
+      }
+
+      .brand-text {
+        display: grid;
+        line-height: 1.05;
+      }
+
+      .brand-text span {
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        font-size: 0.93rem;
+        font-weight: 700;
+        color: #373c47;
+      }
+
+      .nav-links a {
+        padding: 10px 12px;
+        border-radius: var(--radius);
+      }
+
+      .nav-links a:hover,
+      .nav-links a:focus-visible {
+        background: var(--paper);
+        outline: none;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 46px;
+        padding: 12px 18px;
+        border: 1px solid transparent;
+        border-radius: var(--radius);
+        font-weight: 800;
+        line-height: 1.1;
+        text-align: center;
+        transition:
+          transform 160ms ease,
+          box-shadow 160ms ease,
+          background-color 160ms ease;
+      }
+
+      .btn:hover,
+      .btn:focus-visible {
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .btn-primary {
+        color: var(--ink);
+        background: var(--signal);
+        box-shadow: 6px 6px 0 var(--ink);
+      }
+
+      .btn-primary:hover,
+      .btn-primary:focus-visible {
+        background: #ffc928;
+      }
+
+      .btn-secondary {
+        color: var(--white);
+        background: var(--panel);
+        border-color: var(--panel);
+      }
+
+      .btn-secondary:hover,
+      .btn-secondary:focus-visible {
+        background: var(--panel-soft);
+      }
+
+      .hero {
+        min-height: calc(100svh - 72px);
+        display: grid;
+        align-items: center;
+        background:
+          linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.72)),
+          repeating-linear-gradient(
+            135deg,
+            rgba(245, 183, 0, 0.13) 0,
+            rgba(245, 183, 0, 0.13) 1px,
+            transparent 1px,
+            transparent 18px
+          );
+        border-bottom: 1px solid var(--line);
+      }
+
+      .hero-inner {
+        width: min(100% - 32px, var(--max));
+        margin: 0 auto;
+        padding: 72px 0 56px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.86fr);
+        gap: clamp(32px, 6vw, 76px);
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px;
+        color: #2c352c;
+        background: var(--field);
+        border: 1px solid #cfe5d8;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        font-weight: 800;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        background: var(--field-ink);
+        border-radius: 50%;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin-bottom: 20px;
+        font-size: clamp(2.55rem, 5.3vw, 5.7rem);
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 680px;
+        color: #3f4652;
+        font-size: clamp(1.04rem, 1.7vw, 1.28rem);
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin: 34px 0 28px;
+      }
+
+      .proof-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        max-width: 700px;
+      }
+
+      .proof {
+        min-height: 86px;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+      }
+
+      .proof strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 1.15rem;
+      }
+
+      .proof span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.32;
+      }
+
+      .technical-visual {
+        position: relative;
+        min-height: 520px;
+        display: grid;
+        align-items: center;
+      }
+
+      .visual-shell {
+        position: relative;
+        overflow: hidden;
+        min-height: 488px;
+        padding: 26px;
+        color: var(--white);
+        background:
+          radial-gradient(circle at 76% 10%, rgba(245, 183, 0, 0.22), transparent 24%),
+          linear-gradient(150deg, #17191f 0%, #242832 58%, #111318 100%);
+        border: 1px solid #08090c;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .visual-shell::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+        background-size: 38px 38px;
+        mask-image: linear-gradient(to bottom, black, transparent 82%);
+      }
+
+      .visual-top {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: flex-start;
+        margin-bottom: 28px;
+      }
+
+      .visual-title {
+        display: grid;
+        gap: 2px;
+        font-weight: 800;
+      }
+
+      .visual-title span {
+        color: #aab2c0;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 7px 10px;
+        color: #111318;
+        background: var(--signal);
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      .status-pill::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: var(--field-ink);
+        border-radius: 50%;
+      }
+
+      .switchboard {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 0.72fr;
+        gap: 18px;
+      }
+
+      .cabinet,
+      .protocol-panel,
+      .measurement-card {
+        position: relative;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: var(--radius);
+        backdrop-filter: blur(10px);
+      }
+
+      .cabinet {
+        min-height: 315px;
+        padding: 20px;
+      }
+
+      .cabinet-head {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+
+      .cabinet-head strong {
+        font-size: 1.05rem;
+      }
+
+      .meter {
+        display: inline-grid;
+        place-items: center;
+        width: 58px;
+        height: 58px;
+        color: #111318;
+        background: var(--signal);
+        border-radius: 50%;
+        border: 6px solid rgba(255, 255, 255, 0.24);
+        font-weight: 900;
+      }
+
+      .breaker-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 9px;
+      }
+
+      .breaker {
+        min-height: 92px;
+        padding: 9px;
+        background: #d9dee8;
+        border-radius: 6px;
+        box-shadow: inset 0 -8px 0 rgba(23, 25, 31, 0.12);
+      }
+
+      .breaker::before,
+      .breaker::after {
+        content: "";
+        display: block;
+        height: 8px;
+        margin-bottom: 8px;
+        border-radius: 99px;
+        background: #8791a1;
+      }
+
+      .breaker::after {
+        width: 54%;
+        height: 32px;
+        margin: 20px auto 0;
+        background: var(--panel);
+        border: 3px solid #6d7582;
+      }
+
+      .wire-track {
+        position: absolute;
+        right: -74px;
+        bottom: 70px;
+        width: 174px;
+        height: 92px;
+        border: solid var(--signal);
+        border-width: 0 4px 4px 0;
+        border-radius: 0 0 34px 0;
+      }
+
+      .wire-track::before,
+      .wire-track::after {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: var(--signal);
+        border-radius: 50%;
+      }
+
+      .wire-track::before {
+        left: -2px;
+        top: -5px;
+      }
+
+      .wire-track::after {
+        right: -8px;
+        bottom: -8px;
+      }
+
+      .protocol-stack {
+        display: grid;
+        gap: 14px;
+      }
+
+      .protocol-panel {
+        min-height: 182px;
+        padding: 18px;
+      }
+
+      .protocol-panel strong,
+      .measurement-card strong {
+        display: block;
+        margin-bottom: 12px;
+      }
+
+      .protocol-line {
+        display: grid;
+        grid-template-columns: 1fr 42px;
+        gap: 10px;
+        align-items: center;
+        margin-top: 9px;
+      }
+
+      .protocol-line span:first-child {
+        height: 8px;
+        border-radius: 99px;
+        background: rgba(255, 255, 255, 0.24);
+      }
+
+      .protocol-line span:last-child {
+        color: var(--field);
+        font-size: 0.74rem;
+        font-weight: 800;
+      }
+
+      .measurement-card {
+        min-height: 119px;
+        padding: 18px;
+      }
+
+      .readout {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        color: var(--signal);
+        font-size: 2rem;
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .readout small {
+        color: #aab2c0;
+        font-size: 0.82rem;
+      }
+
+      .knx-node {
+        position: absolute;
+        right: 24px;
+        bottom: 20px;
+        display: grid;
+        grid-template-columns: repeat(5, 14px);
+        gap: 7px;
+        padding: 10px;
+        background: #e2f3e8;
+        border-radius: var(--radius);
+        border: 1px solid #a9d6b9;
+      }
+
+      .knx-node span {
+        width: 14px;
+        height: 14px;
+        background: var(--field-ink);
+        border-radius: 3px;
+      }
+
+      .section {
+        padding: 82px 0;
+      }
+
+      .section.alt {
+        background: var(--paper);
+      }
+
+      .section.dark {
+        color: var(--white);
+        background: var(--panel);
+      }
+
+      .section-inner {
+        width: min(100% - 32px, var(--max));
+        margin: 0 auto;
+      }
+
+      .section-heading {
+        max-width: 760px;
+        margin-bottom: 34px;
+      }
+
+      .section-heading h2 {
+        margin-bottom: 12px;
+        font-size: clamp(2rem, 3.2vw, 3.1rem);
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      .section-heading p {
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+
+      .dark .section-heading p {
+        color: #c9ced8;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .service-card {
+        min-height: 282px;
+        padding: 24px;
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+      }
+
+      .service-icon {
+        width: 46px;
+        height: 46px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 22px;
+        color: var(--ink);
+        background: var(--signal);
+        border-radius: var(--radius);
+      }
+
+      .service-card h3 {
+        margin-bottom: 12px;
+        font-size: 1.25rem;
+        line-height: 1.15;
+      }
+
+      .service-card p {
+        color: var(--muted);
+      }
+
+      .service-list {
+        display: grid;
+        gap: 8px;
+        margin: 20px 0 0;
+        padding: 0;
+        color: #39404b;
+        list-style: none;
+        font-weight: 700;
+      }
+
+      .service-list li {
+        display: grid;
+        grid-template-columns: 18px 1fr;
+        gap: 8px;
+        align-items: start;
+      }
+
+      .service-list li::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        margin-top: 8px;
+        background: var(--field-ink);
+        border-radius: 50%;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+        gap: clamp(28px, 6vw, 76px);
+        align-items: start;
+      }
+
+      .checklist {
+        display: grid;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .checklist li {
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        gap: 13px;
+        align-items: start;
+        padding: 17px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: var(--radius);
+      }
+
+      .check {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        color: var(--ink);
+        background: var(--signal);
+        border-radius: 50%;
+        font-weight: 900;
+      }
+
+      .checklist strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .checklist span {
+        color: #c9ced8;
+      }
+
+      .process {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+        counter-reset: step;
+      }
+
+      .process-step {
+        min-height: 216px;
+        padding: 24px;
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        counter-increment: step;
+      }
+
+      .process-step::before {
+        content: counter(step, decimal-leading-zero);
+        display: inline-grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        margin-bottom: 22px;
+        color: var(--white);
+        background: var(--panel);
+        border-radius: 50%;
+        font-size: 0.9rem;
+        font-weight: 900;
+      }
+
+      .process-step h3 {
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+      }
+
+      .process-step p {
+        color: var(--muted);
+      }
+
+      .measurement-grid {
+        display: grid;
+        grid-template-columns: 0.86fr 1.14fr;
+        gap: 28px;
+        align-items: stretch;
+      }
+
+      .measurement-note {
+        padding: 28px;
+        color: var(--white);
+        background:
+          linear-gradient(135deg, rgba(245, 183, 0, 0.18), transparent 40%),
+          var(--panel);
+        border-radius: var(--radius);
+      }
+
+      .measurement-note h2 {
+        margin-bottom: 14px;
+        font-size: clamp(1.9rem, 3vw, 2.7rem);
+        line-height: 1.05;
+      }
+
+      .measurement-note p {
+        color: #d4d8df;
+      }
+
+      .metric-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .metric {
+        min-height: 134px;
+        padding: 20px;
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+      }
+
+      .metric strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .metric span {
+        color: var(--muted);
+      }
+
+      .contact {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.72fr);
+        gap: clamp(28px, 6vw, 74px);
+        align-items: center;
+      }
+
+      .contact h2 {
+        margin-bottom: 16px;
+        font-size: clamp(2.1rem, 4vw, 4rem);
+        line-height: 1;
+      }
+
+      .contact p {
+        color: #c9ced8;
+        font-size: 1.08rem;
+      }
+
+      .contact-panel {
+        padding: 26px;
+        color: var(--ink);
+        background: var(--white);
+        border-radius: var(--radius);
+        font-style: normal;
+      }
+
+      .contact-line {
+        display: grid;
+        grid-template-columns: 40px 1fr;
+        gap: 14px;
+        align-items: start;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .contact-line:first-child {
+        padding-top: 0;
+      }
+
+      .contact-line:last-child {
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
+
+      .contact-icon {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        color: var(--ink);
+        background: var(--signal);
+        border-radius: var(--radius);
+      }
+
+      .contact-line strong,
+      .contact-line a,
+      .contact-line span {
+        display: block;
+      }
+
+      .contact-line a,
+      .contact-line span {
+        color: var(--muted);
+        overflow-wrap: anywhere;
+      }
+
+      .site-footer {
+        padding: 24px 0;
+        color: #ced2da;
+        background: #111318;
+      }
+
+      .footer-inner {
+        width: min(100% - 32px, var(--max));
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 980px) {
+        .nav {
+          min-height: auto;
+          padding: 14px 0;
+          align-items: flex-start;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .hero {
+          min-height: auto;
+        }
+
+        .hero-inner,
+        .split,
+        .measurement-grid,
+        .contact {
+          grid-template-columns: 1fr;
+        }
+
+        .technical-visual {
+          min-height: auto;
+        }
+
+        .services-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .process {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 680px) {
+        .brand {
+          min-width: 0;
+        }
+
+        .brand-text span {
+          display: none;
+        }
+
+        .hero-inner {
+          width: min(100% - 24px, var(--max));
+          padding: 48px 0 34px;
+        }
+
+        .section-inner,
+        .nav,
+        .footer-inner {
+          width: min(100% - 24px, var(--max));
+        }
+
+        .hero-actions,
+        .footer-inner {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+        }
+
+        .proof-row,
+        .services-grid,
+        .process,
+        .metric-list {
+          grid-template-columns: 1fr;
+        }
+
+        .visual-shell {
+          min-height: 0;
+          padding: 18px;
+        }
+
+        .switchboard {
+          grid-template-columns: 1fr;
+        }
+
+        .cabinet {
+          min-height: 278px;
+          padding: 16px;
+        }
+
+        .breaker-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .breaker:nth-child(n + 7) {
+          display: none;
+        }
+
+        .wire-track,
+        .knx-node {
+          display: none;
+        }
+
+        .section {
+          padding: 58px 0;
+        }
+
+        .service-card,
+        .process-step,
+        .metric {
+          min-height: auto;
+        }
+
+        .contact-panel {
+          padding: 20px;
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Electrician",
+        "name": "RB Elektrība",
+        "url": "https://rbelektriba.lv/",
+        "email": "info@rbelektriba.lv",
+        "areaServed": "Latvija",
+        "serviceType": [
+          "Elektroinstalācija",
+          "KNX ēku automatizācija",
+          "Elektroinstalācijas mērījumi",
+          "Mērījumu protokoli ēku nodošanai ekspluatācijā"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Galvenā navigācija">
+        <a class="brand" href="#top" aria-label="RB Elektrība sākums">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" role="img">
+              <path
+                d="M13.2 2 4.9 13h5.8l-1 9 8.4-11.8h-5.6L13.2 2Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </span>
+          <span class="brand-text">
+            RB Elektrība
+            <span>KNX un mērījumi</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="#pakalpojumi">Pakalpojumi</a>
+          <a href="#merijumi">Mērījumi</a>
+          <a href="#process">Process</a>
+          <a href="#kontakti">Kontakti</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <div>
+            <p class="eyebrow">Elektromontāža privātiem, komerciāliem un industriāliem objektiem</p>
+            <h1 id="hero-title">Elektroinstalācija, KNX un mērījumi līdz ēkas nodošanai</h1>
+            <p class="lead">
+              RB Elektrība palīdz sakārtot elektrību no projekta un montāžas līdz mērījumu
+              protokoliem, kas nepieciešami drošai objekta ekspluatācijai.
+            </p>
+            <div class="hero-actions">
+              <a
+                class="btn btn-primary"
+                href="mailto:info@rbelektriba.lv?subject=Pieteikums%20elektroinstal%C4%81cijai%20vai%20m%C4%93r%C4%ABjumiem"
+              >
+                Pieteikt objektu
+              </a>
+              <a class="btn btn-secondary" href="#pakalpojumi">Skatīt pakalpojumus</a>
+            </div>
+            <div class="proof-row" aria-label="Galvenās kompetences">
+              <div class="proof">
+                <strong>KNX</strong>
+                <span>Vadība apgaismojumam, žalūzijām, klimatam un scenārijiem.</span>
+              </div>
+              <div class="proof">
+                <strong>Mērījumi</strong>
+                <span>Elektroinstalācijas pārbaudes un protokoli nodošanai.</span>
+              </div>
+              <div class="proof">
+                <strong>Industriāli</strong>
+                <span>Sadales, iekārtu pieslēgumi un tehniska defektācija.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="technical-visual" aria-hidden="true">
+            <div class="visual-shell">
+              <div class="visual-top">
+                <div class="visual-title">
+                  RB sadale
+                  <span>KNX / Mērījumu protokols</span>
+                </div>
+                <div class="status-pill">Gatavs nodošanai</div>
+              </div>
+              <div class="switchboard">
+                <div class="cabinet">
+                  <div class="cabinet-head">
+                    <strong>Objekta sadalne</strong>
+                    <span class="meter">Ω</span>
+                  </div>
+                  <div class="breaker-grid">
+                    <span class="breaker"></span>
+                    <span class="breaker"></span>
+                    <span class="breaker"></span>
+                    <span class="breaker"></span>
+                    <span class="breaker"></span>
+                    <span class="breaker"></span>
+                    <span class="breaker"></span>
+                    <span class="breaker"></span>
+                  </div>
+                  <span class="wire-track"></span>
+                </div>
+                <div class="protocol-stack">
+                  <div class="protocol-panel">
+                    <strong>Protokoli</strong>
+                    <div class="protocol-line"><span></span><span>RISO</span></div>
+                    <div class="protocol-line"><span></span><span>Zs</span></div>
+                    <div class="protocol-line"><span></span><span>RCD</span></div>
+                    <div class="protocol-line"><span></span><span>PE</span></div>
+                  </div>
+                  <div class="measurement-card">
+                    <strong>Kontroles mērījums</strong>
+                    <div class="readout">0.28 <small>Ω</small></div>
+                  </div>
+                </div>
+              </div>
+              <div class="knx-node">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pakalpojumi" aria-labelledby="services-title">
+        <div class="section-inner">
+          <div class="section-heading">
+            <h2 id="services-title">Pakalpojumi vienā atbildīgā ķēdē</h2>
+            <p>
+              Darbs ir sakārtots tā, lai montāža, automatizācija un pārbaudes nepazūd starp
+              dažādiem izpildītājiem.
+            </p>
+          </div>
+          <div class="services-grid">
+            <article class="service-card">
+              <div class="service-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <path
+                    d="M4 5h16v11H4V5Zm2 2v7h12V7H6Zm2 12h8v2H8v-2Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </div>
+              <h3>Elektroinstalācija</h3>
+              <p>
+                Jaunu objektu elektroinstalācija, pārbūves, sadales, kabeļu trases un iekārtu
+                pieslēgumi.
+              </p>
+              <ul class="service-list">
+                <li>Dzīvojamās un komercēkas</li>
+                <li>Sadales un aizsardzības automāti</li>
+                <li>Apgaismojums un spēka tīkli</li>
+              </ul>
+            </article>
+
+            <article class="service-card">
+              <div class="service-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <path
+                    d="M5 4h5v5H5V4Zm9 0h5v5h-5V4ZM5 15h5v5H5v-5Zm9 0h5v5h-5v-5ZM9 7h6v2H9V7Zm2 9h4v2h-4v-2Zm6-7h2v6h-2V9ZM5 9h2v6H5V9Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </div>
+              <h3>KNX automatizācija</h3>
+              <p>
+                Gudras vadības sistēmas ēkām, kurās svarīga komforta, enerģijas un uzticamības
+                kontrole.
+              </p>
+              <ul class="service-list">
+                <li>Apgaismojuma scenāriji</li>
+                <li>Žalūzijas, klimats un sensori</li>
+                <li>Sadales loģika un programmēšana</li>
+              </ul>
+            </article>
+
+            <article class="service-card">
+              <div class="service-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <path
+                    d="M4 18h16v2H4v-2Zm2-3 3-8 4 5 3-7 4 10h-3l-1-3-2 5-4-5-1 3H6Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </div>
+              <h3>Mērījumi un protokoli</h3>
+              <p>
+                Elektroinstalācijas pārbaudes ar sakārtotu rezultātu fiksēšanu nodošanai
+                ekspluatācijā.
+              </p>
+              <ul class="service-list">
+                <li>Izolācijas pretestība</li>
+                <li>Cilpas impedance un RCD</li>
+                <li>Zemējums un nepārtrauktība</li>
+              </ul>
+            </article>
+
+            <article class="service-card">
+              <div class="service-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <path
+                    d="M6 3h9l3 3v15H6V3Zm8 1.8V7h2.2L14 4.8ZM8 10h8v2H8v-2Zm0 4h8v2H8v-2Zm0 4h5v2H8v-2Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </div>
+              <h3>Dokumentācija nodošanai</h3>
+              <p>
+                Pārskatāmi protokoli un objekta informācija būvniecības procesa noslēgumam.
+              </p>
+              <ul class="service-list">
+                <li>Mērījumu pārskati</li>
+                <li>Objekta apsekošanas secinājumi</li>
+                <li>Darbu nodošanas atbalsts</li>
+              </ul>
+            </article>
+
+            <article class="service-card">
+              <div class="service-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <path
+                    d="M4 4h16v16H4V4Zm2 2v12h12V6H6Zm2 2h8v2H8V8Zm0 4h3v4H8v-4Zm5 0h3v4h-3v-4Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </div>
+              <h3>Industriālie pieslēgumi</h3>
+              <p>
+                Ražošanas telpu, darbnīcu un tehnisko zonu elektroapgādes darbi un pārbaudes.
+              </p>
+              <ul class="service-list">
+                <li>3 fāžu iekārtu pieslēgumi</li>
+                <li>Kabeļu līnijas un sadales</li>
+                <li>Slodžu un aizsardzību pārbaude</li>
+              </ul>
+            </article>
+
+            <article class="service-card">
+              <div class="service-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2a5 5 0 0 1 5 5c0 1.85-1 3.47-2.5 4.33V14h-5v-2.67A5 5 0 0 1 12 2Zm-2.5 14h5v2h-5v-2Zm1 4h3v2h-3v-2Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </div>
+              <h3>Defektācija un uzlabojumi</h3>
+              <p>
+                Esošu instalāciju pārbaude, slēptu kļūdu meklēšana un praktiski uzlabojumu
+                risinājumi.
+              </p>
+              <ul class="service-list">
+                <li>Problēmu diagnostika</li>
+                <li>Drošības uzlabojumi</li>
+                <li>Veco sadalņu sakārtošana</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section dark" id="merijumi" aria-labelledby="measure-title">
+        <div class="section-inner split">
+          <div class="section-heading">
+            <h2 id="measure-title">Mērījumi ēkas nodošanai ekspluatācijā</h2>
+            <p>
+              Mērījumi tiek plānoti kopā ar objekta stadiju, lai neatstātu dokumentāciju uz
+              pēdējo brīdi un ātri pamanītu kļūdas, kas jānovērš pirms nodošanas.
+            </p>
+            <a
+              class="btn btn-primary"
+              href="mailto:info@rbelektriba.lv?subject=Elektroinstal%C4%81cijas%20m%C4%93r%C4%ABjumi%20nodo%C5%A1anai"
+            >
+              Pieteikt mērījumus
+            </a>
+          </div>
+          <ul class="checklist">
+            <li>
+              <span class="check">✓</span>
+              <span>
+                <strong>Izolācijas pretestības pārbaude</strong>
+                <span>Palīdz pārliecināties par kabeļu un ķēžu drošu stāvokli.</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span>
+                <strong>Aizsardzības ķēžu nepārtrauktība</strong>
+                <span>PE vadītāju, savienojumu un zemējuma ceļu pārbaude.</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span>
+                <strong>Cilpas impedance un automātu atslēgšanās</strong>
+                <span>Rezultāti palīdz novērtēt aizsardzības aparātu darbību bojājuma gadījumā.</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span>
+                <strong>RCD pārbaudes</strong>
+                <span>Noplūdes strāvas aizsardzības ierīču nostrādes pārbaudes un fiksēšana.</span>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section alt" aria-labelledby="fit-title">
+        <div class="section-inner measurement-grid">
+          <div class="measurement-note">
+            <h2 id="fit-title">Piemērots objektiem, kur kļūdām nav vietas</h2>
+            <p>
+              Īpaši noderīgi privātmājām pirms nodošanas, komercplatībām ar termiņiem un
+              industriālām telpām, kur elektroapgāde ietekmē ražošanu.
+            </p>
+          </div>
+          <div class="metric-list">
+            <div class="metric">
+              <strong>Privātmājas</strong>
+              <span>Elektroinstalācija, apgaismojums, sadales, KNX un nodošanas mērījumi.</span>
+            </div>
+            <div class="metric">
+              <strong>Komercobjekti</strong>
+              <span>Biroji, veikali, servisi un telpas, kur vajadzīga ātra un tīra izpilde.</span>
+            </div>
+            <div class="metric">
+              <strong>Ražošana</strong>
+              <span>Iekārtu pieslēgumi, trīsfāžu līnijas, slodžu pārbaudes un defektācija.</span>
+            </div>
+            <div class="metric">
+              <strong>Automatizācija</strong>
+              <span>KNX sistēmas ērtai ēkas vadībai ar iespēju turpināt paplašināšanu.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="process" aria-labelledby="process-title">
+        <div class="section-inner">
+          <div class="section-heading">
+            <h2 id="process-title">Skaidrs process no pirmās apskates līdz protokolam</h2>
+            <p>
+              Katrs objekts sākas ar faktu saprašanu: kas ir projektā, kas jau ir izbūvēts un kas
+              vajadzīgs nodošanai.
+            </p>
+          </div>
+          <div class="process">
+            <article class="process-step">
+              <h3>Apsekošana</h3>
+              <p>Noskaidrojam objekta stadiju, slodzes, sadales, termiņus un dokumentu vajadzības.</p>
+            </article>
+            <article class="process-step">
+              <h3>Darbu plāns</h3>
+              <p>Sagatavojam saprotamu izpildes secību montāžai, KNX darbiem vai mērījumiem.</p>
+            </article>
+            <article class="process-step">
+              <h3>Izpilde</h3>
+              <p>Veicam montāžu, programmēšanu, pieslēgumus vai pārbaudes ar sakārtotu pierakstu.</p>
+            </article>
+            <article class="process-step">
+              <h3>Nodošana</h3>
+              <p>Nododam rezultātu, mērījumu protokolus un informāciju nākamajiem uzturēšanas darbiem.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section dark" id="kontakti" aria-labelledby="contact-title">
+        <div class="section-inner contact">
+          <div>
+            <h2 id="contact-title">Piesakiet objektu vai mērījumu izbraukumu</h2>
+            <p>
+              Aprakstiet objektu, atrašanās vietu, vajadzīgo termiņu un to, vai nepieciešama
+              montāža, KNX darbi, industriāls pieslēgums vai tikai mērījumi ar protokolu.
+            </p>
+            <a
+              class="btn btn-primary"
+              href="mailto:info@rbelektriba.lv?subject=Jauns%20objekts%20RB%20Elektr%C4%ABbai&amp;body=Objekta%20tips%3A%0AVieta%3A%0AVajadz%C4%ABgie%20darbi%3A%0ATermi%C5%86%C5%A1%3A"
+            >
+              Rakstīt e-pastu
+            </a>
+          </div>
+          <address class="contact-panel">
+            <div class="contact-line">
+              <span class="contact-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24">
+                  <path d="M3 5h18v14H3V5Zm2 2v.4l7 4.4 7-4.4V7H5Zm14 10V9.8l-7 4.4-7-4.4V17h14Z" fill="currentColor"></path>
+                </svg>
+              </span>
+              <span>
+                <strong>E-pasts</strong>
+                <a href="mailto:info@rbelektriba.lv">info@rbelektriba.lv</a>
+              </span>
+            </div>
+            <div class="contact-line">
+              <span class="contact-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24">
+                  <path d="M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7Zm0 4a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" fill="currentColor"></path>
+                </svg>
+              </span>
+              <span>
+                <strong>Darba reģions</strong>
+                <span>Latvija, pēc vienošanās objektā</span>
+              </span>
+            </div>
+            <div class="contact-line">
+              <span class="contact-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24">
+                  <path d="M6 3h9l3 3v15H6V3Zm2 2v14h8V8h-3V5H8Zm2 6h4v2h-4v-2Zm0 4h4v2h-4v-2Z" fill="currentColor"></path>
+                </svg>
+              </span>
+              <span>
+                <strong>Pieteikumā norādiet</strong>
+                <span>Objekta tipu, termiņu, projektu un vajadzīgos protokolus</span>
+              </span>
+            </div>
+          </address>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>© <span id="year">2026</span> RB Elektrība</span>
+        <span>Elektromontāža · KNX · Mērījumu protokoli</span>
+      </div>
+    </footer>
+  </body>
 </html>
